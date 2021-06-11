@@ -1,0 +1,9 @@
+---
+# tasks file for new_line_jitsi-meet-cfg-lua
+- name: Add new line before "Component "focus. .Env.XMPP_DOMAIN" in file "jitsi-meet.cfg.lua"
+  lineinfile:
+    path: /home/docker-jitsi-meet/prosody/rootfs/defaults/conf.d/jitsi-meet.cfg.lua
+    insertbefore: 'Component "focus.'
+    line: 'muc_restrict_executable = "/config/data/custom_prosody_plugins/mod_muc_restrict_rooms_exec.sh"'
+    state: present
+  register: lineinfileexample

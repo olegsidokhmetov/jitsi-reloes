@@ -1,0 +1,27 @@
+---
+# tasks file for stop_remove_build-containers
+- name: Get running containers Jitsi
+  docker_host_info:
+    containers: true
+  register: docker_info
+
+- name: Stop running containers Jitsi
+  docker_container:
+    name: "{{ item }}"
+    state: stopped
+  loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
+
+- name: Remove Stoped docker containers Jitsi
+  shell: |
+     docker rm $(docker ps -a -q);
+  when: docker_info.containers != 0
+
+- name: Docker-compose build
+  shell:
+    cmd: docker-compose build
+    chdir: /home/docker-jitsi-meet/
+
+- name: Docker-compose UP
+  shell:
+    cmd: "docker-compose up -d"
+    chdir: /home/docker-jitsi-meet/

@@ -1,0 +1,7 @@
+---
+# tasks file for docker-compose_UP
+- name: Docker-compose UP
+  become: true
+  shell:
+    cmd: "docker-compose up -d"
+    chdir: /home/docker-jitsi-meet/

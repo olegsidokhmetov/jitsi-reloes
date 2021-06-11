@@ -1,0 +1,26 @@
+---
+# tasks file for script-mod_muc_restrict_rooms_exec
+- name: Creates directory "custom_prosody_plugins" for Script file mod_muc_restrict_rooms_exec.sh
+  file:
+    path: /root/.jitsi-meet-cfg/prosody/config/data/custom_prosody_plugins/
+    state: directory
+
+- name: Creating a new file "mod_muc_restrict_rooms_exec.sh" with configuration, in /root/.jitsi-meet-cfg/prosody/config/data/custom_prosody_plugins
+  copy:
+    dest: "/root/.jitsi-meet-cfg/prosody/config/data/custom_prosody_plugins/mod_muc_restrict_rooms_exec.sh"
+    content: |
+        #!/bin/sh
+        
+        # LDAP
+        #for i in $(ldapsearch -z 0 -H ldap://x.x.x.x:389 -D "usuario" -w contrasenya -b "ou=CIM,dc=intranet,dc=cliente,dc=net" "(&(memberOf=cn=grpjitsi,ou=grups_globals_acces,dc=intranet,dc=cliente,dc=net))" mail |grep 'mail:'|awk '{print $2}');
+        #do
+        #echo -n $i | md5sum | awk '{print $1}';
+        ## echo $i | cut -d '@' -f1
+        #done
+        # SALAS FIJAS
+        echo QUERSYSTEM
+
+- name: Set executable for file "mod_muc_restrict_rooms_exec.sh"
+  file:
+    dest: /root/.jitsi-meet-cfg/prosody/config/data/custom_prosody_plugins/mod_muc_restrict_rooms_exec.sh
+    mode: '+x'

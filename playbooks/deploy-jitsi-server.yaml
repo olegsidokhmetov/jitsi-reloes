@@ -1,0 +1,23 @@
+- name: Deploy jitsi server
+  hosts: jitsi-role.com
+  become: yes
+
+  roles:
+   - update                                           #1
+   - dependencies                                     #2
+   - docker_install                                   #3
+   - docker_compose_install                           #4
+   - SDK_install                                      #5
+   - docker-jitsi-meet                                #6
+   - env                                              #7
+   - create_directory                                 #8
+   - mod_muc_restrict_rooms_exec                      #9
+   - script-mod_muc_restrict_rooms_exec               #10
+   - new_line_jitsi-meet-cfg-lua                      #11
+   - line_add_replace_docker-compose                  #13
+   - docker-compose_UP                                #14
+   - replace_line_in_interface_config_js              #15
+   - stop_remove_build-containers                     #16
+   - portainer                                        #17
+   - logo                                             #18
+   - authentication                                   #19

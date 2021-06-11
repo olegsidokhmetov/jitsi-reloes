@@ -1,0 +1,26 @@
+- name: Deploy jitsi server
+  hosts: jitsi-role.com
+  gather_facts: false
+  become: yes
+
+  tasks:
+
+    - include: update                                           #1
+    - include: dependencies                                     #2
+    - include: docker_install                                   #3
+    - include: docker_compose_install                           #4
+    - include: SDK_install                                      #5
+    - include: docker-jitsi-meet                                #6
+    - include: env                                              #7
+    - include: create_directory                                 #8
+    - include: mod_muc_restrict_rooms_exec                      #9
+    - script-mod_muc_restrict_rooms_exec               #10
+    - new_line_jitsi-meet-cfg-lua                      #11
+    - line-build_prosody_docker-compose                #12
+    - line_add_replace_docker-compose                  #13
+    - docker-compose_UP                                #14
+    - replace_line_in_interface_config_js              #15
+    - stop_remove_build-containers                     #16
+    - portainer                                        #17
+    - logo                                             #18
+    - authentication                                   #19

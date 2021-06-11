@@ -1,0 +1,17 @@
+---
+# tasks file for line_add_replace_docker-compose
+- name: Add new line "build prosody" in file docker-compose.yml
+  lineinfile:
+     path: /home/docker-jitsi-meet/docker-compose.yml
+     insertafter: "image: jitsi/prosody:stable-5870"
+     line: "        build: ./prosody"
+     state: present
+  register: lineinfileexample
+
+- name: Replace line "image jitsi/prosody:stable-5870"
+  replace:
+     path: "{{ item.path }}"
+     regexp: "{{ item.regexp }}"
+     replace: "{{ item.replace }}"
+  with_items:
+     - {path: '/home/docker-jitsi-meet/docker-compose.yml', regexp: 'image: jitsi/prosody:stable-5870', replace: '#image: jitsi/prosody:stable-5870'}

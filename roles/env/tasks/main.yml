@@ -1,0 +1,32 @@
+---
+# tasks file for env
+- name: Copy files env.example to .env
+  copy:
+    src: /home/docker-jitsi-meet/env.example
+    dest: /home/docker-jitsi-meet/.env
+    remote_src: true
+
+- name: Run script gen-passwords.sh on the remote node
+  shell: /home/docker-jitsi-meet/gen-passwords.sh
+
+- name: Ansible multiple replace in file .env
+  replace:
+    path: "{{ item.path }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - {path: '/home/docker-jitsi-meet/.env', regexp: 'HTTP_PORT=8000', replace: 'HTTP_PORT=80'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: 'HTTPS_PORT=8443', replace: 'HTTPS_PORT=443'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: 'UTC', replace: 'Europe/Madrid'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#PUBLIC_URL=https://meet.example.com', replace: 'PUBLIC_URL=https://185.204.2.53'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#DOCKER_HOST_ADDRESS=192.168.1.1', replace: 'DOCKER_HOST_ADDRESS=185.204.2.53'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_LOBBY=1', replace: 'ENABLE_LOBBY=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_PREJOIN_PAGE=0', replace: 'ENABLE_PREJOIN_PAGE=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_WELCOME_PAGE=1', replace: 'ENABLE_WELCOME_PAGE=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_NOISY_MIC_DETECTION=1', replace: 'ENABLE_NOISY_MIC_DETECTION=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_AUTH=1', replace: 'ENABLE_AUTH=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_GUESTS=1', replace: 'ENABLE_GUESTS=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#AUTH_TYPE=internal', replace: 'AUTH_TYPE=internal'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: 'XMPP_MUC_MODULES=', replace: 'XMPP_MUC_MODULES=muc_restrict_rooms_exec'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '#ENABLE_HTTP_REDIRECT=1', replace: 'ENABLE_HTTP_REDIRECT=1'}
+    - {path: '/home/docker-jitsi-meet/.env', regexp: '# ENABLE_HSTS=1', replace: 'ENABLE_HSTS=1'}
