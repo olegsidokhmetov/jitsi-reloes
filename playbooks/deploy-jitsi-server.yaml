@@ -14,10 +14,10 @@
    - mod_muc_restrict_rooms_exec                      #9
    - script-mod_muc_restrict_rooms_exec               #10
    - new_line_jitsi-meet-cfg-lua                      #11
-   - line_add_replace_docker-compose                  #13
-   - docker-compose_UP                                #14
-   - replace_line_in_interface_config_js              #15
-   - stop_remove_build-containers                     #16
-   - portainer                                        #17
-   - logo                                             #18
-   - authentication                                   #19
+   - line_add_replace_docker-compose                  #12
+   - docker-compose_UP                                #13
+   - replace_line_in_interface_config_js              #14
+   - stop_remove_build-containers                     #15
+   - portainer                                        #16
+   - logo                                             #17
+   - authentication                                   #18
